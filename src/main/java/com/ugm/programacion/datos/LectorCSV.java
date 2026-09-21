@@ -1,4 +1,7 @@
-package com.ugm.programacion;
+package com.ugm.programacion.datos;
+
+import com.ugm.programacion.modelo.Ciudadano;
+import com.ugm.programacion.modelo.Colegio;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,20 +17,21 @@ public class LectorCSV {
             String linea;
             boolean primerLinea = true;
             while ((linea = br.readLine()) != null) {
-                if (primerLinea) { // Omitir cabecera si existe
+                if (primerLinea) {
                     primerLinea = false;
                     continue;
                 }
+
                 String[] partes = linea.split(",");
                 if (partes.length >= 6) {
-                    String id = partes[0].trim();
-                    String rut = partes[1].trim();
-                    String nombre = partes[2].trim();
-                    String comuna = partes[3].trim();
-                    double lat = Double.parseDouble(partes[4].trim());
-                    double lon = Double.parseDouble(partes[5].trim());
-
-                    ciudadanos.add(new Ciudadano(id, rut, nombre, comuna, lat, lon));
+                    ciudadanos.add(new Ciudadano(
+                            partes[0].trim(),
+                            partes[1].trim(),
+                            partes[2].trim(),
+                            partes[3].trim(),
+                            Double.parseDouble(partes[4].trim()),
+                            Double.parseDouble(partes[5].trim())
+                    ));
                 }
             }
         } catch (IOException e) {
@@ -46,16 +50,17 @@ public class LectorCSV {
                     primerLinea = false;
                     continue;
                 }
+
                 String[] partes = linea.split(",");
                 if (partes.length >= 6) {
-                    String codigo = partes[0].trim();
-                    String nombre = partes[1].trim();
-                    String comuna = partes[2].trim();
-                    double lat = Double.parseDouble(partes[3].trim());
-                    double lon = Double.parseDouble(partes[4].trim());
-                    int capacidad = Integer.parseInt(partes[5].trim());
-
-                    colegios.add(new Colegio(codigo, nombre, comuna, lat, lon, capacidad));
+                    colegios.add(new Colegio(
+                            partes[0].trim(),
+                            partes[1].trim(),
+                            partes[2].trim(),
+                            Double.parseDouble(partes[3].trim()),
+                            Double.parseDouble(partes[4].trim()),
+                            Integer.parseInt(partes[5].trim())
+                    ));
                 }
             }
         } catch (IOException e) {
