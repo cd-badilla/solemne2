@@ -21,8 +21,12 @@ set "PATH=%JAVA_HOME%\bin;%PATH%"
 
 if not exist out mkdir out
 
+echo Limpiando compilacion previa...
+if exist out rmdir /s /q out
+mkdir out
+
 echo Compilando proyecto...
-for /r src %%f in (*.java) do javac -d out "%%f"
+for /r src\main\java %%f in (*.java) do javac -d out "%%f"
 
 echo Ejecutando programa...
 java -cp out com.ugm.programacion.Main

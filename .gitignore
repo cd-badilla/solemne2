@@ -4,3 +4,4 @@ out/
 .vscode/
 *.class
 *.log
+run.bat

@@ -1,5 +1,11 @@
 package com.ugm.programacion;
 
+import com.ugm.programacion.datos.LectorCSV;
+import com.ugm.programacion.logica.AsignadorVotacion;
+import com.ugm.programacion.modelo.Asignacion;
+import com.ugm.programacion.modelo.Ciudadano;
+import com.ugm.programacion.modelo.Colegio;
+
 import java.util.List;
 
 public class Main {
@@ -7,7 +13,6 @@ public class Main {
         String rutaCiudadanos = "ciudadanos_santiago.csv";
         String rutaColegios = "colegios_santiago.csv";
 
-        // Cargar datos
         List<Ciudadano> ciudadanos = LectorCSV.leerCiudadanos(rutaCiudadanos);
         List<Colegio> colegios = LectorCSV.leerColegios(rutaColegios);
 
@@ -16,21 +21,15 @@ public class Main {
             return;
         }
 
-        // Realizar asignación
         List<Asignacion> resultados = AsignadorVotacion.asignarCiudadanos(ciudadanos, colegios);
 
-        // Mostrar resultados
         System.out.println("===         UNIVERSIDAD GABRIELA MISTRAL         ===");
-        System.out.println("=== RESUMEN DE ASIGNACIÓN DE LOCALES DE VOTACIÓN ===");
+        System.out.println("=== RESUMEN DE ASIGNACION DE LOCALES DE VOTACION ===");
         System.out.printf("%-22s | %-45s | %-28s | %10s%n", "Ciudadano", "Local", "Tipo", "Distancia");
         System.out.println("-".repeat(115));
-        for (Asignacion a : resultados) {
-            String nombreColegio = (a.getColegio() != null) ? a.getColegio().getNombre() : "Ninguno";
-            System.out.printf("%-22s | %-45s | %-28s | %7.2f km%n",
-                    a.getCiudadano().getNombre(),
-                    nombreColegio,
-                    a.getTipoAsignacion(),
-                    a.getDistancia());
+
+        for (Asignacion asignacion : resultados) {
+            System.out.println(asignacion.formatearFila());
         }
     }
 }
